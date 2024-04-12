@@ -1,0 +1,56 @@
+{
+    "category":[
+
+        { "id": 1, "name": "Electronics" },
+        { "id": 2, "name": "Bakery" }
+
+
+
+
+
+
+
+    ],
+    "products":[
+        {
+            "id": 1,
+            "name": "Product 1",
+            "quantity": 5,
+            "price": 3000,
+            "imgUrl": "assets/images/airpods.jpg",
+            "catId": 1
+        },
+        {
+            "id": 2,
+            "name": "Product 2",
+            "quantity": 3,
+            "price": 20,
+            "imgUrl": "assets/images/bakes.jpeg",
+            "catId": 2
+        },
+        {
+            "id": 3,
+            "name": "Product 3",
+            "quantity": 2,
+            "price": 100000,
+            "imgUrl": "/assets/images/iphone.jpg",
+            "catId": 1
+        },
+        {
+            "id": 5,
+            "name": "Product 4",
+            "quantity": 2,
+            "price": 20,
+            "imgUrl": "assets/images/camera.jpeg",
+            "catId": 1
+        },
+        {
+            "id": 5,
+            "name": "Product 5",
+            "quantity": 1,
+            "price": 250000,
+            "imgUrl": "assets/images/lap.jpg",
+            "catId": 1
+        }
+    ]
+}

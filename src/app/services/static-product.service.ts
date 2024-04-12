@@ -49,4 +49,9 @@ if(catId==0)
 
 
   }
+
+  mapProductsToID():number[]
+  {
+    return this.products.map((prd)=>prd.id);
+  }
 }
