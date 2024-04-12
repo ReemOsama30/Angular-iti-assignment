@@ -1,0 +1,49 @@
+<!-- <h1>{{todaysDate|date}}</h1> -->
+
+  
+ <div class="row row-cols-1 row-cols-md-4 g-4 m-4">
+    <ng-container *ngFor="let prd of filteredProducts;let i=index;let c=count;trackBy: trackProducts">
+        <!-- <div class="col" *ngIf="prd.quantity!=0" [class.d-none]="prd.catId!=selectedCatId">  -->
+           <!-- <div [class.d-none]="prd.catId!=selectedCatId&&selectedCatId!=0"appHighlightElement="orange" hoverColor="green" > -->
+            <!-- <div class="card"  [ngClass]="{'text-danger': prd.quantity === 0}" appProductCard [appProductCard]="'lightblue'>  -->
+                <div class="card" appProductCard [appProductCard]="'lightblue'">
+            <!-- [style.background-color]="(prd.quantity === 1) ? 'yellow' : 'white'">  -->
+
+                <!-- <img src="{{prd.imgUrl}}" class="card-img-top"  alt="...">  -->
+
+                <!-- property binding -->
+                <img [src]="prd.imgUrl" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{prd.name}}</h5> 
+
+
+                    <!-- <p class="card-text" *ngIf="prd.quantity==0; else elseQuantity">Quantity is : Sold Out!</p>
+                   
+                    <ng-template #elseQuantity>
+                    <p class="card-text"  >Quantity is : {{prd.quantity}}</p>
+                </ng-template>
+         -->
+            <div [ngSwitch]="prd.quantity">
+                <p *ngSwitchCase="0">Quantity is: Sold Out!</p>
+                <p *ngSwitchCase="1">Quantity is: Last item</p>
+                <p *ngSwitchCase="2">Quantity is: Last 2 items</p>
+                <p *ngSwitchDefault>Quantity is: {{ prd.quantity }}</p>
+            </div>
+            
+            
+            <p class="card-text">Price is : {{prd.price|currency}}</p> 
+                    <!-- //refrence , template variable -->
+                   <button class="btn btn-primary" (click)="buy(this.prd)">Buy</button>
+
+                   <button class="btn btn-info" [routerLink]="['/details',prd.id]">Details</button>
+                </div>
+            </div> 
+        <!-- </div>  -->
+            <!-- </div> -->
+    </ng-container>
+
+
+</div>
+
+<!-- <h1>num is :{{num|power:3}}</h1> -->

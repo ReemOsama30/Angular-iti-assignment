@@ -1,0 +1,38 @@
+<!-- (change)="filteredProductsfn()" -->
+<div class="mb-3 w-50 mx-auto">
+    <label for="" class="form-label">Categories</label>
+    <select class="form-select form-select-lg" [(ngModel)]="selectedCatId" >
+      <option value="0" selected>All</option>
+      <option *ngFor="let cat of category" [value]="cat.id">{{cat.name}}</option>
+    </select>
+  </div>
+  <!-- (onTotalPriceChanged)="change($event) -->
+  <app-products [recievedCategoryID]="selectedCatId" (onOrderItem)="add($event)"> </app-products>
+
+ 
+  <!-- <h1>Total order Price is {{recievedTotalOrderPrice}}</h1> -->
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of receivedProducts">
+          <td>{{ product.name }}</td>
+          <td>{{ 1}}</td>
+          <td>{{ product.price | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  
+<p>Credit Card Number: {{ '1234567890123456' | creditCard }}</p>
+
+
