@@ -1,0 +1,62 @@
+<h1>{{product|json}}</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form (submit)="addProduct()" #addprdForm="ngForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name" required #prdname="ngModel">
+
+                </div>
+                @if (prdname.touched&&prdname.invalid) {
+                <div class="text-danger">
+                    <p>Name field is required !!</p>
+                </div>
+                }
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="price" [(ngModel)]="product.price" name="price"
+                        required #priceform="ngModel">
+                </div>
+
+                @if (priceform.touched&&priceform.invalid) {
+                    <div class="text-danger">
+                        <p>price field is required !!</p>
+                    </div>
+                    }
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" [(ngModel)]="product.quantity"
+                        name="quantity" required #qtyform="ngModel">
+                </div>
+                @if (qtyform.touched&&qtyform.invalid) {
+                    <div class="text-danger">
+                        <p>quantity field is required !!</p>
+                    </div>
+                    }
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">image</label>
+                    <input type="file" class="form-control" id="image" [(ngModel)]="product.imgUrl" name="image"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Categories</label>
+                    <select class="form-select form-select-lg" [(ngModel)]="product.catId" name="catid" id="">
+                        @for (cat of categories; track cat.id) {
+                        <option [value]="cat.id" selected>{{cat.name}}</option>
+                        }
+                    </select>
+                </div>
+
+
+
+                <button type="submit" [disabled]="addprdForm.invalid" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+</div>

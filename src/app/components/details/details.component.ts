@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StaticProductService } from '../../services/static-product.service';
 import { Iproduct } from '../../models/iproduct';
 import { Location } from '@angular/common';
+import { ApiProductsService } from '../../services/api-products.service';
 
 @Component({
   selector: 'app-details',
@@ -18,7 +19,9 @@ product:Iproduct|undefined={} as Iproduct;
   constructor(private _activatedRoute:ActivatedRoute 
     ,private _StaticProductService:StaticProductService,
     private _Router:Router,
-  private location:Location)
+  private location:Location
+,private productApi:ApiProductsService
+)
   {
 
   }
@@ -27,8 +30,16 @@ product:Iproduct|undefined={} as Iproduct;
   //  this.product=this._StaticProductService.getProductByID(this.currentID);
   this._activatedRoute.paramMap.subscribe((paramMap)=>{
    this.currentID=Number( paramMap.get('id'));
-  this.product=this._StaticProductService.getProductByID(this.currentID);
-  
+  // this.product=this._StaticProductService.getProductByID(this.currentID);
+  this.productApi.getProductById(this.currentID).subscribe({
+    next: (res: Iproduct) => {
+      this.product = res;
+    },
+    error: (err) => {
+      console.log('Error fetching product:', err);
+      // Handle error, show message, etc.
+    }
+  });
   });
    this.prdIds=this._StaticProductService.mapProductsToID();
   }

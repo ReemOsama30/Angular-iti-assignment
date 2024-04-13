@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output,  } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output,  } from '@angular/core';
 import { Iproduct } from '../../models/iproduct';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { Data, Router, RouterLink } from '@angular/router';
 import { PowerPipe } from '../../pipes/power.pipe';
 import { ProductCardDirective } from '../../directives/product-card.directive';
 import { StaticProductService } from '../../services/static-product.service';
+import { ApiProductsService } from '../../services/api-products.service';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +16,7 @@ import { StaticProductService } from '../../services/static-product.service';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent implements OnChanges {
+export class ProductsComponent implements OnChanges,OnInit {
   //products:Iproduct[];
 
   filteredProducts: Iproduct[] = [];
@@ -32,7 +33,7 @@ totalOrderPrice:number=0;
 num:number=2;
 todaysDate:Date=new Date()
 
-  constructor(private StaticProductService:StaticProductService,private router:Router) {
+  constructor(private StaticProductService:StaticProductService,private router:Router,private apiProductService:ApiProductsService) {
     this.onOrderItem=new EventEmitter<Iproduct>()
     this.onTotalPriceChanged=new EventEmitter<number>()
 
@@ -40,8 +41,30 @@ todaysDate:Date=new Date()
     
     this.filteredProducts = this.StaticProductService.getAllProducts();
   }
+  ngOnInit(): void {
+   this.apiProductService.getAllProducts().subscribe({
+    next:(res)=>{
+      this.filteredProducts=res;
+    }
+  ,
+  error(err) {
+    console.log(err);
+    
+  },
+  
+  });
+   
+  }
   ngOnChanges(): void {
-   this.filteredProducts= this.StaticProductService.getProductsByCategoryID(this.recievedCategoryID);
+  //  this.filteredProducts= this.StaticProductService.getProductsByCategoryID(this.recievedCategoryID);
+
+  this.apiProductService.getProductByCatId(this.recievedCategoryID).subscribe((res)=>{
+
+      this.filteredProducts = res;
+    
+
+
+  });
   }
   
 
@@ -73,6 +96,20 @@ todaysDate:Date=new Date()
   
   
   // }
+
+
+  deleteProduct(id:number)
+  {
+this.apiProductService.deleteProduct(id).subscribe({
+
+next:()=> {
+  this.filteredProducts = this.filteredProducts.filter((p) => p.id !== id);
+},
+error:(err)=> {
+  console.log(err);
+},
+})
+  }
   NavigateToDetails()
   {
 this.router.navigateByUrl('/details');

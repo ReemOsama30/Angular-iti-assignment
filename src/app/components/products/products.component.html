@@ -37,6 +37,8 @@
                    <button class="btn btn-primary" (click)="buy(this.prd)">Buy</button>
 
                    <button class="btn btn-info" [routerLink]="['/details',prd.id]">Details</button>
+                   <button class="btn btn-danger" (click)="deleteProduct(prd.id)" >Delete</button>
+                   <button class="btn btn-success" [routerLink]="['/edit',prd.id]" >Edit</button>
                 </div>
             </div> 
         <!-- </div>  -->

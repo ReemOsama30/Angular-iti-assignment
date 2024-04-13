@@ -8,6 +8,8 @@ import { ValuesComponent } from './components/values/values.component';
 import { VisionComponent } from './components/vision/vision.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { DetailsComponent } from './components/details/details.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
 
 export const routes: Routes = [
 {path:'home',component:HomeComponent},
@@ -19,13 +21,20 @@ children:[
     {path:'vision',component:VisionComponent
     }
 ]},
-{path:'products',component:ProductsComponent},
+{path:'products',component:OrderComponent},
 {
 path:'order',component:OrderComponent
+},
+
+{
+    path:"Add",component:AddProductComponent
 },
 {
 path:"details/:id",component:DetailsComponent
 },
+{
+    path:"edit/:id",component:EditProductComponent
+    },
 {
     path:'',redirectTo:'home',pathMatch:'full'
 }
